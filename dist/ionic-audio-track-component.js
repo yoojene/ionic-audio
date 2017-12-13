@@ -28,10 +28,17 @@ var AudioTrackComponent = (function () {
          * @type {EventEmitter}
          */
         this.onFinish = new EventEmitter();
+        /**
+         * Output property expects an event handler to be notified whenever playback pauses
+         *
+         * @memberof AudioTrackComponent
+         */
+        this.onPause = new EventEmitter();
         this._isFinished = false;
     }
     AudioTrackComponent.prototype.ngOnInit = function () {
-        if (!(this.track instanceof WebAudioTrack) && !(this.track instanceof CordovaAudioTrack)) {
+        if (!(this.track instanceof WebAudioTrack) &&
+            !(this.track instanceof CordovaAudioTrack)) {
             this._audioTrack = this._audioProvider.create(this.track);
         }
         else {
@@ -47,6 +54,7 @@ var AudioTrackComponent = (function () {
     };
     AudioTrackComponent.prototype.pause = function () {
         this._audioTrack.pause();
+        this.onPause.emit(this._audioTrack);
         this._audioProvider.current = undefined;
     };
     AudioTrackComponent.prototype.toggle = function () {
@@ -161,8 +169,8 @@ var AudioTrackComponent = (function () {
 export { AudioTrackComponent };
 AudioTrackComponent.decorators = [
     { type: Component, args: [{
-                selector: 'audio-track',
-                template: '<ng-content></ng-content>'
+                selector: "audio-track",
+                template: "<ng-content></ng-content>"
             },] },
 ];
 /** @nocollapse */
@@ -172,5 +180,6 @@ AudioTrackComponent.ctorParameters = function () { return [
 AudioTrackComponent.propDecorators = {
     'track': [{ type: Input },],
     'onFinish': [{ type: Output },],
+    'onPause': [{ type: Output },],
 };
 //# sourceMappingURL=ionic-audio-track-component.js.map
