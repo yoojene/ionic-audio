@@ -47,6 +47,12 @@ export declare class AudioTrackComponent implements DoCheck {
      * @memberof AudioTrackComponent
      */
     onPause: EventEmitter<ITrackConstraint>;
+    /**
+     * Output property expects an event handler to be notified whenever playback starts
+     *
+     * @memberof AudioTrackComponent
+     */
+    onPlay: EventEmitter<ITrackConstraint>;
     private _isFinished;
     private _audioTrack;
     constructor(_audioProvider: AudioProvider);

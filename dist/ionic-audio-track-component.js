@@ -34,6 +34,12 @@ var AudioTrackComponent = (function () {
          * @memberof AudioTrackComponent
          */
         this.onPause = new EventEmitter();
+        /**
+         * Output property expects an event handler to be notified whenever playback starts
+         *
+         * @memberof AudioTrackComponent
+         */
+        this.onPlay = new EventEmitter();
         this._isFinished = false;
     }
     AudioTrackComponent.prototype.ngOnInit = function () {
@@ -50,6 +56,7 @@ var AudioTrackComponent = (function () {
     };
     AudioTrackComponent.prototype.play = function () {
         this._audioTrack.play();
+        this.onPlay.emit(this._audioTrack);
         this._audioProvider.current = this._audioTrack.id;
     };
     AudioTrackComponent.prototype.pause = function () {
@@ -181,5 +188,6 @@ AudioTrackComponent.propDecorators = {
     'track': [{ type: Input },],
     'onFinish': [{ type: Output },],
     'onPause': [{ type: Output },],
+    'onPlay': [{ type: Output },],
 };
 //# sourceMappingURL=ionic-audio-track-component.js.map
