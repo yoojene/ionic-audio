@@ -23,8 +23,8 @@ import {Component, DoCheck, EventEmitter, Output, Input} from '@angular/core';
  * @class AudioTrackComponent
  */
 @Component({
-    selector: 'audio-track',
-    template: '<ng-content></ng-content>'
+  selector: "audio-track",
+  template: "<ng-content></ng-content>"
 })
 export class AudioTrackComponent implements DoCheck {
   /**
@@ -51,13 +51,23 @@ export class AudioTrackComponent implements DoCheck {
    */
   @Output() onFinish = new EventEmitter<ITrackConstraint>();
 
+  /**
+   * Output property expects an event handler to be notified whenever playback pauses
+   *
+   * @memberof AudioTrackComponent
+   */
+  @Output() onPause = new EventEmitter<ITrackConstraint>();
+
   private _isFinished: boolean = false;
   private _audioTrack: IAudioTrack;
 
   constructor(private _audioProvider: AudioProvider) {}
 
   ngOnInit() {
-    if (!(this.track instanceof WebAudioTrack) && !(this.track instanceof CordovaAudioTrack)) {
+    if (
+      !(this.track instanceof WebAudioTrack) &&
+      !(this.track instanceof CordovaAudioTrack)
+    ) {
       this._audioTrack = this._audioProvider.create(this.track);
     } else {
       Object.assign(this._audioTrack, this.track);
@@ -86,42 +96,39 @@ export class AudioTrackComponent implements DoCheck {
     }
   }
 
-  seekTo(time:number) {
+  seekTo(time: number) {
     this._audioTrack.seekTo(time);
   }
 
-
-  public get id() : number {
+  public get id(): number {
     return this._audioTrack.id;
   }
 
-  public get art() : string {
+  public get art(): string {
     return this.track.art;
   }
 
-
-  public get artist() : string {
+  public get artist(): string {
     return this.track.artist;
   }
 
-
-  public get title() : string {
+  public get title(): string {
     return this.track.title;
   }
 
-  public get progress() : number {
+  public get progress(): number {
     return this._audioTrack.progress;
   }
 
-  public get isPlaying() : boolean {
+  public get isPlaying(): boolean {
     return this._audioTrack.isPlaying;
   }
 
-  public get duration() : number {
+  public get duration(): number {
     return this._audioTrack.duration;
   }
 
-  public get completed() : number {
+  public get completed(): number {
     return this._audioTrack.completed;
   }
 
@@ -133,16 +140,16 @@ export class AudioTrackComponent implements DoCheck {
     return this._audioTrack.error;
   }
 
-  public get isLoading() : boolean {
+  public get isLoading(): boolean {
     return this._audioTrack.isLoading;
   }
 
-  public get hasLoaded() : boolean {
+  public get hasLoaded(): boolean {
     return this.hasLoaded;
   }
 
   ngDoCheck() {
-    if(!Object.is(this._audioTrack.isFinished, this._isFinished)) {
+    if (!Object.is(this._audioTrack.isFinished, this._isFinished)) {
       // some logic here to react to the change
       this._isFinished = this._audioTrack.isFinished;
 
