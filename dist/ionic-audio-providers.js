@@ -73,12 +73,13 @@ var AudioProvider = (function () {
      * Pauses a given track.
      *
      * @method pause
-     * @param {number} [index] The track id, or if undefined it will pause whichever track currently playing
+     * @param {number} [index] The track id
+     * //, or if undefined it will pause whichever track currently playing
      */
     AudioProvider.prototype.pause = function (index) {
-        if (this._current === undefined || index > AudioProvider.tracks.length - 1)
+        if (index > AudioProvider.tracks.length - 1)
             return;
-        index = index || this._current;
+        // index = index || undefined;
         AudioProvider.tracks[index].pause();
     };
     ;

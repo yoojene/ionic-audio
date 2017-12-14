@@ -50,9 +50,10 @@ export declare abstract class AudioProvider implements IAudioProvider {
      * Pauses a given track.
      *
      * @method pause
-     * @param {number} [index] The track id, or if undefined it will pause whichever track currently playing
+     * @param {number} [index] The track id
+     * //, or if undefined it will pause whichever track currently playing
      */
-    pause(index?: number): void;
+    pause(index: number): void;
     /**
      * Stops a given track.
      *
