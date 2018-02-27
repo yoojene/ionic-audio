@@ -95,8 +95,8 @@ export abstract class AudioProvider implements IAudioProvider {
     console.log('stop in audio Provider');
     console.log(index);
     // if (this._current===undefined || index > AudioProvider.tracks.length-1) return;
-    index = index || this._current;
-    console.log(index);
+    // index = index || this._current;
+    // console.log(index);
     console.log(AudioProvider.tracks);
     AudioProvider.tracks[index].stop();
     this._current = undefined;
