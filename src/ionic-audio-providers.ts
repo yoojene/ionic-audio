@@ -104,9 +104,10 @@ export abstract class AudioProvider implements IAudioProvider {
       return el.isPlaying === true;
     });
 
-    console.log(playing);
+    console.log(playing[0].id);
+    let idx = playing[0].id;
     // console.log(playing);
-    AudioProvider.tracks[index].stop();
+    AudioProvider.tracks[idx].stop();
     this._current = undefined;
   }
 

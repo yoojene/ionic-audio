@@ -100,9 +100,10 @@ var AudioProvider = (function () {
         var playing = AudioProvider.tracks.filter(function (el) {
             return el.isPlaying === true;
         });
-        console.log(playing);
+        console.log(playing[0].id);
+        var idx = playing[0].id;
         // console.log(playing);
-        AudioProvider.tracks[index].stop();
+        AudioProvider.tracks[idx].stop();
         this._current = undefined;
     };
     Object.defineProperty(AudioProvider.prototype, "tracks", {
