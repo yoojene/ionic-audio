@@ -92,9 +92,16 @@ var AudioProvider = (function () {
         console.log('stop in audio Provider');
         console.log(index);
         // if (this._current===undefined || index > AudioProvider.tracks.length-1) return;
+        if (index > AudioProvider.tracks.length - 1)
+            return;
         // index = index || this._current;
         // console.log(index);
         console.log(AudioProvider.tracks);
+        var playing = AudioProvider.tracks.filter(function (el) {
+            return (el.isPlaying = true);
+        });
+        console.log(playing);
+        // console.log(playing);
         AudioProvider.tracks[index].stop();
         this._current = undefined;
     };
