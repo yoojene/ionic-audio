@@ -21,7 +21,9 @@ import { CordovaAudioTrack } from './ionic-audio-cordova-track';
  * @return {IAudioProvider} An IAudioProvider instance
  */
 export function defaultAudioProviderFactory() {
-    return window.hasOwnProperty('cordova') && window.hasOwnProperty('Media') ? new CordovaMediaProvider() : new WebAudioProvider();
+    return window.hasOwnProperty('cordova') && window.hasOwnProperty('Media')
+        ? new CordovaMediaProvider()
+        : new WebAudioProvider();
 }
 /**
  * Base class for audio providers
@@ -55,7 +57,6 @@ var AudioProvider = (function () {
     AudioProvider.prototype.add = function (audioTrack) {
         AudioProvider.tracks.push(audioTrack);
     };
-    ;
     /**
      * Plays a given track.
      *
@@ -68,7 +69,6 @@ var AudioProvider = (function () {
         this._current = index;
         AudioProvider.tracks[index].play();
     };
-    ;
     /**
      * Pauses a given track.
      *
@@ -82,7 +82,6 @@ var AudioProvider = (function () {
         // index = index || undefined;
         AudioProvider.tracks[index].pause();
     };
-    ;
     /**
      * Stops a given track.
      *
@@ -90,13 +89,11 @@ var AudioProvider = (function () {
      * @param {number} [index] The track id, or if undefined it will stop whichever track currently playing
      */
     AudioProvider.prototype.stop = function (index) {
-        if (this._current === undefined || index > AudioProvider.tracks.length - 1)
-            return;
+        // if (this._current===undefined || index > AudioProvider.tracks.length-1) return;
         index = index || this._current;
         AudioProvider.tracks[index].stop();
         this._current = undefined;
     };
-    ;
     Object.defineProperty(AudioProvider.prototype, "tracks", {
         /**
          * Gets an array of tracks managed by this provider
