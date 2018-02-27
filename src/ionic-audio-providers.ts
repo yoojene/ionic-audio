@@ -101,7 +101,7 @@ export abstract class AudioProvider implements IAudioProvider {
     console.log(AudioProvider.tracks);
 
     let playing = AudioProvider.tracks.filter(el => {
-      return (el.isPlaying = true);
+      return el.isPlaying === true;
     });
 
     console.log(playing);

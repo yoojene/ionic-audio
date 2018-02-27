@@ -98,7 +98,7 @@ var AudioProvider = (function () {
         // console.log(index);
         console.log(AudioProvider.tracks);
         var playing = AudioProvider.tracks.filter(function (el) {
-            return (el.isPlaying = true);
+            return el.isPlaying === true;
         });
         console.log(playing);
         // console.log(playing);
