@@ -59,6 +59,8 @@ export declare abstract class AudioProvider implements IAudioProvider {
      *
      * @method stop
      * @param {number} [index] The track id, or if undefined it will stop whichever track currently playing
+     * Iterate over AudioProvider.tracks to get one playing
+     * and stop that track Id
      */
     stop(index?: number): void;
     /**

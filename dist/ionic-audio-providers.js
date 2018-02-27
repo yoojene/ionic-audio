@@ -87,22 +87,18 @@ var AudioProvider = (function () {
      *
      * @method stop
      * @param {number} [index] The track id, or if undefined it will stop whichever track currently playing
+     * Iterate over AudioProvider.tracks to get one playing
+     * and stop that track Id
      */
     AudioProvider.prototype.stop = function (index) {
-        console.log('stop in audio Provider');
-        console.log(index);
         // if (this._current===undefined || index > AudioProvider.tracks.length-1) return;
         if (index > AudioProvider.tracks.length - 1)
             return;
-        // index = index || this._current;
-        // console.log(index);
-        console.log(AudioProvider.tracks);
+        // Find the playing track (should only be one) and return
         var playing = AudioProvider.tracks.filter(function (el) {
             return el.isPlaying === true;
         });
-        console.log(playing[0].id);
         var idx = playing[0].id;
-        // console.log(playing);
         AudioProvider.tracks[idx].stop();
         this._current = undefined;
     };

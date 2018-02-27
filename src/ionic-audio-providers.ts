@@ -90,23 +90,19 @@ export abstract class AudioProvider implements IAudioProvider {
    *
    * @method stop
    * @param {number} [index] The track id, or if undefined it will stop whichever track currently playing
+   * Iterate over AudioProvider.tracks to get one playing
+   * and stop that track Id
    */
   stop(index?: number) {
-    console.log('stop in audio Provider');
-    console.log(index);
     // if (this._current===undefined || index > AudioProvider.tracks.length-1) return;
     if (index > AudioProvider.tracks.length - 1) return;
-    // index = index || this._current;
-    // console.log(index);
-    console.log(AudioProvider.tracks);
 
+    // Find the playing track (should only be one) and return
     let playing = AudioProvider.tracks.filter(el => {
       return el.isPlaying === true;
     });
 
-    console.log(playing[0].id);
     let idx = playing[0].id;
-    // console.log(playing);
     AudioProvider.tracks[idx].stop();
     this._current = undefined;
   }
