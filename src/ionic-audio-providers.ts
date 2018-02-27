@@ -1,7 +1,11 @@
-import {IAudioProvider, ITrackConstraint, IAudioTrack} from './ionic-audio-interfaces';
-import {Injectable} from '@angular/core';
-import {WebAudioTrack} from './ionic-audio-web-track';
-import {CordovaAudioTrack} from './ionic-audio-cordova-track';
+import {
+  IAudioProvider,
+  ITrackConstraint,
+  IAudioTrack,
+} from './ionic-audio-interfaces';
+import { Injectable } from '@angular/core';
+import { WebAudioTrack } from './ionic-audio-web-track';
+import { CordovaAudioTrack } from './ionic-audio-cordova-track';
 
 /**
  * Creates an audio provider based on the environment.
@@ -13,7 +17,9 @@ import {CordovaAudioTrack} from './ionic-audio-cordova-track';
  * @return {IAudioProvider} An IAudioProvider instance
  */
 export function defaultAudioProviderFactory() {
-  return window.hasOwnProperty('cordova') && window.hasOwnProperty('Media') ? new CordovaMediaProvider() : new WebAudioProvider();
+  return window.hasOwnProperty('cordova') && window.hasOwnProperty('Media')
+    ? new CordovaMediaProvider()
+    : new WebAudioProvider();
 }
 
 /**
@@ -29,8 +35,7 @@ export abstract class AudioProvider implements IAudioProvider {
   protected static tracks: IAudioTrack[] = [];
   protected _current: number;
 
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * Creates an IAudioTrack instance from a JSON object.
@@ -53,7 +58,7 @@ export abstract class AudioProvider implements IAudioProvider {
    */
   add(audioTrack: IAudioTrack) {
     AudioProvider.tracks.push(audioTrack);
-  };
+  }
 
   /**
    * Plays a given track.
@@ -62,10 +67,10 @@ export abstract class AudioProvider implements IAudioProvider {
    * @param {number} index The track id
    */
   play(index: number) {
-    if (index===undefined || index > AudioProvider.tracks.length-1) return;
+    if (index === undefined || index > AudioProvider.tracks.length - 1) return;
     this._current = index;
     AudioProvider.tracks[index].play();
-  };
+  }
 
   /**
    * Pauses a given track.
@@ -75,10 +80,10 @@ export abstract class AudioProvider implements IAudioProvider {
    * //, or if undefined it will pause whichever track currently playing
    */
   pause(index: number) {
-    if (index > AudioProvider.tracks.length-1) return;
+    if (index > AudioProvider.tracks.length - 1) return;
     // index = index || undefined;
     AudioProvider.tracks[index].pause();
-  };
+  }
 
   /**
    * Stops a given track.
@@ -87,11 +92,11 @@ export abstract class AudioProvider implements IAudioProvider {
    * @param {number} [index] The track id, or if undefined it will stop whichever track currently playing
    */
   stop(index?: number) {
-    if (this._current===undefined || index > AudioProvider.tracks.length-1) return;
+    // if (this._current===undefined || index > AudioProvider.tracks.length-1) return;
     index = index || this._current;
     AudioProvider.tracks[index].stop();
     this._current = undefined;
-  };
+  }
 
   /**
    * Gets an array of tracks managed by this provider
@@ -100,7 +105,7 @@ export abstract class AudioProvider implements IAudioProvider {
    * @readonly
    * @type {IAudioTrack[]}
    */
-  public get tracks() : IAudioTrack[] {
+  public get tracks(): IAudioTrack[] {
     return AudioProvider.tracks;
   }
 
@@ -110,7 +115,7 @@ export abstract class AudioProvider implements IAudioProvider {
    * @property current
    * @type {number}
    */
-  public get current() : number {
+  public get current(): number {
     return this._current;
   }
 
@@ -119,10 +124,9 @@ export abstract class AudioProvider implements IAudioProvider {
    *
    * @property current
    */
-  public set current(v : number) {
+  public set current(v: number) {
     this._current = v;
   }
-
 }
 
 /**
@@ -135,7 +139,6 @@ export abstract class AudioProvider implements IAudioProvider {
  */
 @Injectable()
 export class WebAudioProvider extends AudioProvider {
-
   constructor() {
     super();
     console.log('Using Web Audio provider');
@@ -145,10 +148,9 @@ export class WebAudioProvider extends AudioProvider {
     let audioTrack = new WebAudioTrack(track.src, track.preload);
     Object.assign(audioTrack, track);
     let trackId = WebAudioProvider.tracks.push(audioTrack);
-    audioTrack.id = trackId-1;
+    audioTrack.id = trackId - 1;
     return audioTrack;
   }
-
 }
 
 /**
@@ -161,7 +163,6 @@ export class WebAudioProvider extends AudioProvider {
  */
 @Injectable()
 export class CordovaMediaProvider extends AudioProvider {
-
   constructor() {
     super();
     console.log('Using Cordova Media provider');
@@ -171,8 +172,7 @@ export class CordovaMediaProvider extends AudioProvider {
     let audioTrack = new CordovaAudioTrack(track.src);
     Object.assign(audioTrack, track);
     let trackId = CordovaMediaProvider.tracks.push(audioTrack);
-    audioTrack.id = trackId-1;
+    audioTrack.id = trackId - 1;
     return audioTrack;
   }
-
 }
