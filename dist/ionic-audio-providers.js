@@ -80,7 +80,9 @@ var AudioProvider = (function () {
         if (index > AudioProvider.tracks.length - 1)
             return;
         // index = index || undefined;
-        AudioProvider.tracks[index].pause();
+        var playing = AudioProvider.tracks.filter(function (res) { return res.isPlaying === true; });
+        var idx = playing[0].id;
+        AudioProvider.tracks[idx].pause();
     };
     /**
      * Stops a given track.
