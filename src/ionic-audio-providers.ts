@@ -79,7 +79,7 @@ export abstract class AudioProvider implements IAudioProvider {
    * @param {number} [index] The track id
    * //, or if undefined it will pause whichever track currently playing
    */
-  pause(index: number) {
+  pause(index?: number) {
     if (index > AudioProvider.tracks.length - 1) return;
     // index = index || undefined;
     let playing = AudioProvider.tracks.filter(res => res.isPlaying === true);
